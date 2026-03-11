@@ -1,0 +1,22 @@
+/* NetworkGraph.css */
+.network-graph-container {
+  flex: 1;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #020817;
+  padding: 12px;
+}
+
+.network-svg {
+  max-width: 100%;
+  max-height: 100%;
+  overflow: visible;
+}
+
+/* Neuron hover glow effect */
+.neuron-group:hover circle {
+  filter: drop-shadow(0 0 8px rgba(59,130,246,0.7));
+  cursor: pointer;
+}
