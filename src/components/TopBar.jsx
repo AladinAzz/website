@@ -4,7 +4,33 @@
 import { useNN } from '../store/useNNStore';
 import './TopBar.css';
 
-export default function TopBar({ onPlay, onPause, onStep, onReset, onToggle3d }) {
+function BackendBadge({ serverMode }) {
+  // serverMode: null = checking, true = CUDA server, false = browser
+  if (serverMode === null) {
+    return (
+      <div className="backend-badge checking" title="Detecting backend…">
+        <span className="backend-dot" />
+        Detecting…
+      </div>
+    );
+  }
+  if (serverMode) {
+    return (
+      <div className="backend-badge cuda" title="CUDA GPU server (RTX 3050)">
+        <span className="backend-dot" />
+        CUDA · RTX 3050
+      </div>
+    );
+  }
+  return (
+    <div className="backend-badge cpu" title="Browser TensorFlow.js (no CUDA server)">
+      <span className="backend-dot" />
+      Browser
+    </div>
+  );
+}
+
+export default function TopBar({ onPlay, onPause, onStep, onReset, serverMode }) {
   const { state, dispatch } = useNN();
   const { isTraining, epoch, trainLoss, testLoss, plotMode } = state;
 
@@ -58,6 +84,8 @@ export default function TopBar({ onPlay, onPause, onStep, onReset, onToggle3d })
           <span className="metric-value loss-test">{fmtLoss(testLoss)}</span>
         </div>
       </div>
+
+      <BackendBadge serverMode={serverMode} />
 
       <div className="view-toggle">
         <button

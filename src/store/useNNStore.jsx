@@ -45,7 +45,6 @@ function reducer(state, action) {
         ),
       };
     case 'ADD_LAYER':
-      if (state.hiddenLayers.length >= 6) return state;
       return {
         ...state,
         hiddenLayers: [...state.hiddenLayers, [4, state.globalActivation]],
@@ -60,7 +59,7 @@ function reducer(state, action) {
       return {
         ...state,
         hiddenLayers: state.hiddenLayers.map((l, i) =>
-          i === action.idx ? [Math.min(10, Math.max(1, action.units)), l[1]] : l
+          i === action.idx ? [Math.max(1, action.units), l[1]] : l
         ),
       };
     default: return state;
